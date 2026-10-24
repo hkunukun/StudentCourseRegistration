@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment</title>
+</head>
+<body>
+    <h1>Course Enrollment</h1>
+
+    <form method="POST" action="{{ url_for('enroll') }}">
+        <label>Select Student:</label>
+        <select name="email" required>
+            {% for student in students %}
+            <option value="{{ student.email }}">{{ student.name }} ({{ student.email }})</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>Select Course:</label>
+        <select name="course_id" required>
+            {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Enroll in Course</button>
+    </form>
+
+    <p>{{ message }}</p>
+
+    <h2>Course Enrollments</h2>
+    <ul>
+        {% for enrollment in enrollments %}
+        <li>{{ enrollment.student_name }} — {{ enrollment.course_name }}</li>
+        {% else %}
+        <li>No course enrollments yet.</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    <p><a href="{{ url_for('register') }}">Register a Student</a></p>
+</body>
+</html>
